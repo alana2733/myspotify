@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID; // Client ID từ Spotify
-export const REDIRECT_URI = "http://localhost:3000/callback";
+export const REDIRECT_URI = "https://myspotify-six.vercel.app/callback";// Thay <your-vercel-project-name> bằng tên Vercel project của bạn
 export const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 export const RESPONSE_TYPE = "token";
 
@@ -11,7 +11,6 @@ export const getPlaylist = async (token, playlistId) => {
     let nextUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`; // Đường dẫn để lấy bài hát
     console.log("Current token:", token);
     console.log("Fetching playlist for ID:", playlistId);
-
 
     try {
         do {

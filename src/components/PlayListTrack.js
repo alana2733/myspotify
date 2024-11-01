@@ -29,8 +29,13 @@ const PlayListTrack = ({ token, playlistId }) => {
 
     useEffect(() => {
         const fetchPlaylist = async () => {
+            if (!token) {
+                console.error("No token available");
+                return;
+            }
             try {
                 const data = await getPlaylist(token, playlistId);
+                console.log("Fetched playlist data:", data); // Log dữ liệu nhận được
                 setPlaylist(data);
             } catch (error) {
                 console.error("Failed to fetch playlist", error);
@@ -38,11 +43,9 @@ const PlayListTrack = ({ token, playlistId }) => {
                 setLoading(false);
             }
         };
-
-        if (token) {
-            fetchPlaylist();
-        }
-    }, [token, playlistId]);
+    
+        fetchPlaylist();
+    }, [token, playlistId]);    
 
     const handlePlay = (trackId) => {
         const track = playlist.tracks.items.find(item => item.track.id === trackId);
@@ -106,8 +109,8 @@ const PlayListTrack = ({ token, playlistId }) => {
         return <div>Loading...</div>;
     }
 
-    if (!playlist) {
-        return <div>No playlist found</div>;
+    if (!playlist || !playlist.tracks || !playlist.tracks.items.length) {
+        return <div>No playlist found or no tracks available</div>;
     }
 
     const currentTrackDetails = playlist.tracks.items.find(item => item.track.id === currentTrack);
@@ -130,36 +133,36 @@ const PlayListTrack = ({ token, playlistId }) => {
                         {currentTrackDetails ? (
                             <>
                                 <div className="track-player">
-                        <img
-                            src={currentTrackDetails.track.album.images[0].url}
-                            alt={currentTrackDetails.track.name}
-                            className="track-player-image"
-                        />
-                        <div className="track-info">
-                            <h4 className="track-title">{currentTrackDetails.track.name}</h4>
-                            <p className="track-artists">
-                                {currentTrackDetails.track.artists.map(artist => artist.name).join(", ")}
-                            </p>
-                        </div>
-                    </div>
-                    <div className="track-controls">
-                        <button onClick={handlePreviousTrack} className="arrow-button">←</button>
-                        <audio
-                            controls
-                            className="track-audio"
-                            ref={el => {
-                                if (el) {
-                                    audioRefs.current[currentTrack] = el; // Ghi nhận tham chiếu audio
-                                }
-                            }}
-                            src={currentTrackDetails.track.preview_url} // Thêm src vào audio
-                            autoPlay // Tự động phát bài mới
-                        >
-                            Your browser does not support the audio element.
-                        </audio>
-                        <button onClick={handleNextTrack} className="arrow-button">→</button>
-                        </div>
-                        </>
+                                    <img
+                                        src={currentTrackDetails.track.album.images[0].url}
+                                        alt={currentTrackDetails.track.name}
+                                        className="track-player-image"
+                                    />
+                                    <div className="track-info">
+                                        <h4 className="track-title">{currentTrackDetails.track.name}</h4>
+                                        <p className="track-artists">
+                                            {currentTrackDetails.track.artists.map(artist => artist.name).join(", ")}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="track-controls">
+                                    <button onClick={handlePreviousTrack} className="arrow-button">←</button>
+                                    <audio
+                                        controls
+                                        className="track-audio"
+                                        ref={el => {
+                                            if (el) {
+                                                audioRefs.current[currentTrack] = el; // Ghi nhận tham chiếu audio
+                                            }
+                                        }}
+                                        src={currentTrackDetails.track.preview_url} // Thêm src vào audio
+                                        autoPlay // Tự động phát bài mới
+                                    >
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                    <button onClick={handleNextTrack} className="arrow-button">→</button>
+                                </div>
+                            </>
                         ) : (
                             <p>No preview available for this track.</p>
                         )}
@@ -188,4 +191,4 @@ PlayListTrack.propTypes = {
     playlistId: PropTypes.string.isRequired,
 };
 
-export default PlayListTrack
+export default PlayListTrack;

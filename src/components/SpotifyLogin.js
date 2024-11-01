@@ -9,25 +9,28 @@ function SpotifyLogin() {
     useEffect(() => {
         const hash = window.location.hash;
         let token = window.localStorage.getItem("token");
-
+    
         if (!token && hash) {
             token = hash
                 .substring(1)
                 .split("&")
                 .find(elem => elem.startsWith("access_token"))
                 .split("=")[1];
-
+        
             window.location.hash = ""; // Xóa token khỏi URL
             window.localStorage.setItem("token", token); // Lưu token vào localStorage
             setToken(token);
         } else {
             setToken(token);
         }
-    }, []);
+    }, []);            
 
     const handleLogin = () => {
-        window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token`;
-    };
+        const scope = "playlist-read-private playlist-modify-public";
+        const loginUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=${scope}`;
+        console.log("Login URL:", loginUrl);  // Thêm dòng này để kiểm tra
+        window.location.href = loginUrl;
+    };                  
 
     const handleLogout = () => {
         setToken("");
@@ -46,9 +49,8 @@ function SpotifyLogin() {
                     <Button variant="contained" onClick={handleLogout}>
                         Log out
                     </Button>
-                    {/* Tiêu đề cho danh sách bài hát */}
-                    <h3>Have a good day</h3> {/* Tiêu đề Playlist Track */}
-                    <PlayListTrack token={token} playlistId="41bMZSaOUsJWV4SLRYXr7p" /> {/* Gọi PlayListTrack với token và playlistId */}
+                    <h3>Have a good day</h3>
+                    <PlayListTrack token={token} playlistId="54ZA9LXFvvFujmOVWXpHga" />
                 </div>
             )}
         </div>
