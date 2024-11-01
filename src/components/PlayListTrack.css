@@ -1,0 +1,166 @@
+/* PlayListTrack.css */
+
+.playlist-container {
+    background-color: pink;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.playlist-title {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: white; 
+    background-color: black; 
+    padding: 10px; 
+    border-radius: 8px; 
+    text-align: center;
+}
+
+.tracks-grid {
+    display: flex; /* Sử dụng flexbox */
+    flex-wrap: wrap; /* Cho phép các item xuống dòng */
+    justify-content: center; /* Căn giữa các item */
+    gap: 15px; /* Khoảng cách giữa các item */
+}
+
+.track-item {
+    background-color: white;
+    padding: 5px; /* Giữ nguyên padding */
+    border-radius: 8px; /* Hình vuông cho đĩa */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Đưa các item lên trên cùng */
+    transition: transform 0.3s; /* Thêm hiệu ứng nhô lên */
+    cursor: pointer; /* Hiển thị con trỏ khi di chuột */
+    width: 120px; /* Chiều rộng của item */
+    height: 170px; /* Tăng chiều cao để có thêm khoảng trống cho tên bài hát */
+    overflow: hidden; /* Đảm bảo không có nội dung thừa */
+}
+
+.track-item:hover {
+    transform: scale(1.05); /* Nhô lên khi di chuột */
+}
+
+.track-album-image {
+    width: 100%; /* Đặt chiều rộng bằng 100% để vừa với item */
+    height: auto; /* Chiều cao tự động để duy trì tỷ lệ */
+    max-height: 100px; /* Giới hạn chiều cao tối đa */
+    object-fit: cover; /* Giữ tỷ lệ hình ảnh mà không bị méo */
+    border-radius: 0; /* Đặt border-radius bằng 0 để hình vuông */
+}
+
+.track-title {
+    font-size: 0.9em; /* Kích thước chữ cho tên bài hát */
+    margin-top: 5px; /* Thêm khoảng cách với ảnh */
+    text-align: center;
+    font-weight: bold; /* Làm nổi bật tên bài hát */
+    color: black; /* Màu chữ cho tên bài hát */
+    white-space: normal; /* Cho phép xuống dòng nếu cần */
+    text-overflow: ellipsis; /* Hiện dấu "..." khi văn bản bị cắt */
+    overflow: hidden; /* Ẩn phần nội dung thừa */
+    display: -webkit-box; /* Sử dụng box để giới hạn số dòng */
+    -webkit-box-orient: vertical; /* Đặt hướng box theo chiều dọc */
+    -webkit-line-clamp: 2; /* Giới hạn số dòng hiển thị là 2 */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Nền mờ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Đảm bảo modal nằm trên tất cả */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    width: 80%; /* Đặt chiều rộng của modal */
+    max-width: 600px; /* Giới hạn chiều rộng tối đa */
+}
+
+.track-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Để căn giữa nội dung */
+    text-align: center; /* Căn giữa văn bản */
+}
+
+.track-info {
+    margin-bottom: 5px; /* Giảm khoảng cách giữa tên bài hát và tên ca sĩ */
+    text-align: center; /* Căn giữa các phần tử */
+}
+
+.track-title {
+    margin: 0; /* Đặt margin của tên bài hát thành 0 để xích lại gần hơn */
+    font-size: 1.2em; /* Có thể điều chỉnh kích thước chữ nếu cần */
+}
+
+.track-artists {
+    margin: 2px 0 0; /* Đặt margin trên là 2px để xích lại gần hơn và không có margin dưới */
+    color: gray; /* Màu sắc của tên ca sĩ */
+    font-size: 0.9em; /* Có thể điều chỉnh kích thước chữ nếu cần */
+}
+
+.track-player-image {
+    width: 200px; /* Điều chỉnh kích thước hình ảnh */
+    height: 200px; /* Đảm bảo hình vuông */
+    object-fit: cover; /* Cắt hình ảnh để vừa khung */
+    border-radius: 10px; /* Để hình ảnh có góc bo tròn */
+}
+
+.track-controls {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    margin-top: 10px; /* Khoảng cách phía trên */
+}
+
+.arrow-button {
+    background-color: #4CAF50; /* Màu nền nút */
+    border: none; /* Không có viền */
+    color: white; /* Màu chữ */
+    padding: 10px; /* Khoảng cách bên trong nút */
+    text-align: center; /* Căn giữa nội dung */
+    text-decoration: none; /* Không gạch chân */
+    display: inline-block; /* Hiển thị như khối trực tuyến */
+    font-size: 16px; /* Kích thước chữ */
+    cursor: pointer; /* Thay đổi con trỏ khi di chuột */
+    margin: 0 5px; /* Khoảng cách giữa các nút */
+}
+
+.track-audio {
+    margin: 0 10px; /* Khoảng cách giữa audio và các nút */
+    flex-grow: 1; /* Cho phép audio chiếm không gian còn lại */
+}
+
+.track-controls button {
+    margin: 0 10px; /* Khoảng cách giữa các nút */
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+.download-button {
+    margin-top: 10px;
+    display: inline-block;
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.download-button:hover {
+    background-color: darkgreen; /* Màu khi di chuột qua nút tải xuống */
+}
