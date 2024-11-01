@@ -9,6 +9,9 @@ export const RESPONSE_TYPE = "token";
 export const getPlaylist = async (token, playlistId) => {
     const allTracks = []; // Mảng để lưu trữ tất cả bài hát
     let nextUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`; // Đường dẫn để lấy bài hát
+    console.log("Current token:", token);
+    console.log("Fetching playlist for ID:", playlistId);
+
 
     try {
         do {
